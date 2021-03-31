@@ -1,0 +1,41 @@
+# trabajamos el lenguaje de javascript
+language: node_js
+# os: osx
+
+# Mas configuraciones
+git:
+  # 3 niveles de git
+  depth: 3
+
+branches:
+  # branches que no queremos implementar
+  except:
+  - legacy
+  - experimental
+
+branches:
+  # solo las ramas que queremos
+  only:
+  - master
+  - stable
+
+before_install: #antes de instalar
+  - python
+
+install: # Instalar librerias
+  - yarn install
+# - apt install curl
+
+script: #Ejecutar Scrips
+  - yarn deploy
+  - yarn test
+
+before_script: # Antes de ejecutar el Script
+  - clean
+
+after_script: # Despues de ejecutar el Script
+  - yarn clean
+
+cache: # Cachar dentro del proyecto
+  directories:
+    - node_modules # mantener en cache node_modules
