@@ -13,6 +13,15 @@ git: # número de versiones (git) a guardar
 script: #script a ejecutar
   - yarn build
 
+# manda emails a esos mails cuando es exitoso y cuando falla
+notifications:
+  email:
+    reciepients:
+    - eric.gomez.sanchez@gmail.com
+    - eric.gmz93@gmail.com
+    on_success: always
+    on_failure: always
+
 deploy:
   provider: pages
   #github pages
