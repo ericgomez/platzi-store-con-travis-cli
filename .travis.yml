@@ -39,3 +39,20 @@ after_script: # Despues de ejecutar el Script
 cache: # Cachar dentro del proyecto
   directories:
     - node_modules # mantener en cache node_modules
+
+#jobs
+
+jobs: #flujo de trabajo
+  include:
+    - stage: test # Generar stage
+      script: yarn test
+      script: yarn eslint
+    - stage: deploy
+      script: yarn deploy
+
+# deploy github page y heroku
+
+deploy:
+  provider: heroku #Proveedor heroku, github pages, etc
+  on
+    repo: ericgomez/platzi-store
