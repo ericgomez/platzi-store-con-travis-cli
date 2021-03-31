@@ -1,58 +1,33 @@
 # trabajamos el lenguaje de javascript
 language: node_js
-# os: osx
-
-# Mas configuraciones
-git:
-  # 3 niveles de git
-  depth: 3
-
-branches:
-  # branches que no queremos implementar
-  except:
-  - legacy
-  - experimental
-
-branches:
-  # solo las ramas que queremos
-  only:
-  - master
-  - stable
-
-before_install: #antes de instalar
-  - python
-
-install: # Instalar librerias
-  - yarn install
-# - apt install curl
-
-script: #Ejecutar Scrips
-  - yarn deploy
-  - yarn test
-
-before_script: # Antes de ejecutar el Script
-  - clean
-
-after_script: # Despues de ejecutar el Script
-  - yarn clean
-
-cache: # Cachar dentro del proyecto
+cache: # información ya configurada para el proyecto
   directories:
-    - node_modules # mantener en cache node_modules
+    - node_modules
+    - ~/.npm
 
-#jobs
+  node_js: #version
+    - '12'
+  git: # número de versiones (git) a guardar
+    depth: 3
 
-jobs: #flujo de trabajo
-  include:
-    - stage: test # Generar stage
-      script: yarn test
-      script: yarn eslint
-    - stage: deploy
-      script: yarn deploy
+  script: #script a ejecutar
+    - yarn build
 
-# deploy github page y heroku
+  deploy:
+    provider: pages
+    #github pages
+    # configuración del deploy:
+    skip_cleanup: true
+    keep_history: true
+    # creación de un token para la conexión
+    # entre Travis y GitHub:
+    github_token: $GITHUB_TOKEN
+    # directorio resultante de la compilación:
+    # xej: /bundle  /public ...etc
+    local_dir: dist/
+    target_branch: gh-pages
+    # rama de publicación (sitio) de GitHub:
 
-deploy:
-  provider: heroku #Proveedor heroku, github pages, etc
-  on
-    repo: ericgomez/platzi-store
+    commit-message: "Deploy del proyecto"
+    on:
+      branch: master
