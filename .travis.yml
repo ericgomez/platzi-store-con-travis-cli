@@ -15,6 +15,7 @@ script: #script a ejecutar
 
 # manda emails a esos mails cuando es exitoso y cuando falla
 notifications:
+  slack: industriasgomez:GDjo3Fb2JKtnNDtZtg8V792K #Integración con notificaciones de Slack
   email:
     reciepients:
     - eric.gomez.sanchez@gmail.com
